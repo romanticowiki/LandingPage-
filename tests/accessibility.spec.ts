@@ -12,6 +12,9 @@ const viewports = [
 
 test("homepage has no automatically detectable WCAG A or AA violations", async ({ page }) => {
   await page.goto("/");
+  await expect(page.locator(".hero__copy")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".hero__summary")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".hero__visual")).toHaveCSS("opacity", "1");
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
   expect(results.violations).toEqual([]);
 });
